@@ -346,7 +346,12 @@
       ServiciosAdicionales: [...serviciosSeleccionados]
     };
 
-    const fechaEvento = new Date(form.Fecha);
+  //  const fechaEvento = new Date(form.Fecha);
+
+    const [yyyy, mm, dd] = form.Fecha.split('-').map(Number);
+    const fechaEvento = new Date(yyyy, mm - 1, dd); // ¡Ojo! Meses en JS son 0-11
+
+
     const fechaHoy = new Date();
     const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
     const fechaFormateadaEvento = fechaEvento.toLocaleDateString('es-ES', opciones).replace(/ de /g, ' de ');
