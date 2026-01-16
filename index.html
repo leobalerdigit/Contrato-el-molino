@@ -314,11 +314,26 @@
   }
 
   function generarPDF() {
-    const required = ["Fecha", "HoraInicio", "HoraFin", "FormaPago"];
+    const required = ["Fecha", "HoraInicio", "HoraFin", "FormaPago", "Nombre", "Telefono"];
     for (let f of required) if (!document.getElementById(f).value) {
       alert("Complete los campos obligatorios.");
       return;
     }
+    
+const evento = document.getElementById("Evento").value;
+  // Si es cumpleaños o fiesta de 15, agregar campos adicionales obligatorios
+  if (evento === "Cumpleaños" || evento === "Fiesta de 15 años") {
+    if (!document.getElementById("Anfitrion").value.trim()) {
+      alert("Debe ingresar el nombre del cumpleañero/a.");
+      return;
+    }
+    if (!document.getElementById("nroaños").value.trim()) {
+      alert("Debe ingresar la edad del cumpleañero/a.");
+      return;
+    }
+  }
+
+
 
     const form = {
       Fecha: document.getElementById("Fecha").value,
@@ -346,10 +361,12 @@
       ServiciosAdicionales: [...serviciosSeleccionados]
     };
 
-  //  const fechaEvento = new Date(form.Fecha);
+   
+
+     //  const fechaEvento = new Date(form.Fecha);
 
     const [yyyy, mm, dd] = form.Fecha.split('-').map(Number);
-    const fechaEvento = new Date(yyyy, mm - 1, dd); // ¡Ojo! Meses en JS son 0-11
+    const fechaEvento = new Date(yyyy, mm - 1, dd); // ¡Ojo! Meses en JS son 0-11	
 
 
     const fechaHoy = new Date();
